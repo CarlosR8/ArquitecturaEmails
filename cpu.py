@@ -1,6 +1,6 @@
 import ssl
 from email.message import EmailMessage
-import smtplib
+#   import smtplib
 import json
 import random
 import time
@@ -20,8 +20,8 @@ from paho.mqtt import client as mqtt_client
 # Hive
 BROKER = 'broker.hivemq.com'
 PORT = 1883
-TOPIC_DATA = "metodos_ubicacion"
-TOPIC_ALERT = "metodos_ubicacion"
+TOPIC_DATA = "test_arquitectura2"
+TOPIC_ALERT = "test_arquitectura2"
 # generate client ID with pub prefix randomly
 CLIENT_ID = "python-mqtt-tcp-pub-sub-{id}".format(id=random.randint(0, 1000))
 FLAG_CONNECTED = 0
@@ -62,7 +62,7 @@ def publish(client, TOPIC, msg):
 
 
 email_sender = 'carlozedmusa@gmail.com'       # Ingresar mail desde donde se enviaran los mensajes
-email_password = 'qsgjmodahrdtefvo'     # Ingresar contraseña del email
+email_password = ''     # Ingresar contraseña del email
 email_receiver = 'carlozedmusa@gmail.com'     # Ingresar email que recibira los mensajes
 
 
@@ -82,12 +82,21 @@ context = ssl.create_default_context()
 
 
 #   if cpu > 40 send mail
-
+TOPIC = "test_arquitectura2"
 while True:
-    alerta = psutil.cpu_percent()
-    if alerta > 40:
-        print(alerta)
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
-            smtp.login(email_sender, email_password)
-            smtp.sendmail(email_sender, email_receiver, em.as_string())
-            time.sleep(10)
+    cpu = psutil.cpu_percent()
+    ram = psutil.virtual_memory()[2]
+    usoDisco = round(psutil.disk_usage('/').percent)
+    if cpu > 0:
+        data = {
+            'CPU': cpu,
+            'Memoria': ram,
+            'Disco': usoDisco
+        }
+
+        json_data = json.dumps(data)
+        #publish(client, TOPIC, json_data)
+        result= client.publish(TOPIC, json_data)
+
+
+    time.sleep(5)
