@@ -99,4 +99,4 @@ while True:
         result= client.publish(TOPIC, json_data)
 
 
-    time.sleep(5)
+    time.sleep(2)
