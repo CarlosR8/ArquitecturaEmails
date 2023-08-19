@@ -6,6 +6,8 @@ import random
 import time
 import psutil
 from paho.mqtt import client as mqtt_client
+from sendDataBase import sendDataFireBase
+
 
 # Local
 # BROKER = 'localhost'
@@ -93,6 +95,7 @@ while True:
             'Memoria': ram,
             'Disco': usoDisco
         }
+        sendDataFireBase(cpu, ram, usoDisco)
 
         json_data = json.dumps(data)
         #publish(client, TOPIC, json_data)
