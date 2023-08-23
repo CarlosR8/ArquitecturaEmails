@@ -25,9 +25,9 @@ def sendDataFireBase(cpu, ram, usoDisco):
         new_post_ref.set({
             'fecha': fecha,
             'hora': hora,
-            'grupo6Datos': cpu,
-            'grupo6Datos': ram,
-            'grupo6Datos': usoDisco,
+            'Uso de CPU': cpu,
+            'Uso Memoria RAM': ram,
+            'Uso Disco': usoDisco,
         })
         print("Registro guardado")
     except  Exception as e:

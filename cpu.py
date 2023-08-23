@@ -22,8 +22,8 @@ from sendDataBase import sendDataFireBase
 # Hive
 BROKER = 'broker.hivemq.com'
 PORT = 1883
-TOPIC_DATA = "test_arquitectura2"
-TOPIC_ALERT = "test_arquitectura2"
+TOPIC_DATA = "grupo6_arquitectura"
+TOPIC_ALERT = "grupo6_arquitectura"
 # generate client ID with pub prefix randomly
 CLIENT_ID = "python-mqtt-tcp-pub-sub-{id}".format(id=random.randint(0, 1000))
 FLAG_CONNECTED = 0
@@ -84,9 +84,9 @@ context = ssl.create_default_context()
 
 
 #   if cpu > 40 send mail
-TOPIC = "test_arquitectura2"
+TOPIC = "grupo6_arquitectura"
 while True:
-    cpu = psutil.cpu_percent()
+    cpu = psutil.cpu_percent()*10
     ram = psutil.virtual_memory()[2]
     usoDisco = round(psutil.disk_usage('/').percent)
     if cpu > 0:
